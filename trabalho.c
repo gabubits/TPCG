@@ -78,6 +78,18 @@ void Inicializa(void)
     angle = 45;
 }
 
+void GerenciaTeclado(unsigned char key, int x, int y)
+{
+    switch (key)
+    {
+    case 'e':
+    case 'E':
+        exit(0);
+        break;
+    }
+    glutPostRedisplay();
+}
+
 // Programa Principal
 int main(int argc, char **argv)
 {
@@ -88,6 +100,7 @@ int main(int argc, char **argv)
     glutCreateWindow("Carrossel");
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
+    glutKeyboardFunc(GerenciaTeclado);
     Inicializa();
     glutMainLoop();
 
