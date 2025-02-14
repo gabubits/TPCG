@@ -7,9 +7,9 @@ GLfloat angle, fAspect;
 // Função responsável pela especificação dos parâmetros de iluminação
 void DefineIluminacao(void)
 {
-    GLfloat luzAmbiente[4] = {0.25, 0.25, 0.25, 1.0};
-    GLfloat luzDifusa[4] = {0.7, 0.7, 0.7, 1.0};
-    GLfloat posicaoLuz0[4] = {5.0, 5.0, 0.0, 1.0};
+    GLfloat luzAmbiente[4] = {0.25f, 0.25f, 0.25f, 1.0f};
+    GLfloat luzDifusa[4] = {0.7f, 0.7f, 0.7f, 1.0f};
+    GLfloat posicaoLuz0[4] = {5.0f, 5.0f, 0.0f, 1.0f};
 
     glLightModelfv(GL_LIGHT_MODEL_AMBIENT, luzAmbiente);
 
@@ -36,7 +36,9 @@ void PosicionaObservador(void)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     DefineIluminacao();
-    gluLookAt(5.0, 5.0, 3.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0);
+    gluLookAt(5.0, 5.0, 3.0,
+              0.0, 0.0, 0.0,
+              0.0, 1.0, 0.0);
 }
 
 // Função usada para especificar o volume de visualização
@@ -83,7 +85,7 @@ int main(int argc, char **argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(5, 5);
     glutInitWindowSize(850, 850);
-    glutCreateWindow("Cubo RGB");
+    glutCreateWindow("Carrossel");
     glutDisplayFunc(Desenha);
     glutReshapeFunc(AlteraTamanhoJanela);
     Inicializa();
