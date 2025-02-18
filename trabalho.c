@@ -232,11 +232,12 @@ void GerenciaTeclado(unsigned char key, int x, int y)
 {
     switch (key)
     {
-    case 'e':
+    case 'e': // Sair do programa
     case 'E':
         exit(0);
         break;
-    case 'a':
+
+    case 'a': // Ligar/desligar animação
     case 'A':
         interruptorAnimacao = !interruptorAnimacao; // Troca o estado do interruptor
         if (interruptorAnimacao)
