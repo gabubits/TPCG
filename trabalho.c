@@ -71,31 +71,40 @@ void DesenhaCilindro(float raio, float altura, int segmentos)
     }
     glEnd();
 }
+
+// Função responsável pela especificação dos parâmetros da luz pontual (embaixo do brinquedo)
 void DefineLuzPontual(void)
 {
-    GLfloat luzPosicao[] = {0.0f, 1.0f, 0.0f, 1.0f}; // Posiciona a luz na cena
-    GLfloat luzAmbient[] = {0.3f, 0.0f, 0.3f, 1.0f}; // Componente ambiente para reforçar a luz
-    GLfloat luzCor[] = {1.0f, 0.0f, 1.0f, 1.0f};     // Cor roxa intensa
+    GLfloat luzPosicao[] = {0.0f, 1.0f, 0.0f, 1.0f};  // Posiciona a luz na cena
+    GLfloat luzAmbiente[] = {0.3f, 0.0f, 0.3f, 1.0f}; // Componente ambiente para reforçar a luz
+    GLfloat luzCor[] = {1.0f, 0.0f, 1.0f, 1.0f};      // Cor roxa intensa
 
     glLightfv(GL_LIGHT1, GL_POSITION, luzPosicao);
-    glLightfv(GL_LIGHT1, GL_AMBIENT, luzAmbient);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, luzAmbiente);
     glLightfv(GL_LIGHT1, GL_DIFFUSE, luzCor);
     glLightfv(GL_LIGHT1, GL_SPECULAR, luzCor);
+}
+
+// Função responsável pela especificação dos parâmetros da luz direcional (Sol)
+void DefineLuzDirecional(void)
+{
+
+    GLfloat luzPosicao[] = {1.0f, 1.0f, 1.0f, 0.0f};
+    GLfloat luzAmbiente[] = {0.5f, 0.5f, 0.5f, 1.0f}; // Componente ambiente para iluminar mais
+    GLfloat luzCor[] = {1.0f, 0.9f, 0.7f, 1.0f};      // Tom quente, como a luz do sol
+    GLfloat especular[] = {1.0f, 0.9f, 0.7f, 1.0f};   // Mesma tonalidade para o especular
+
+    glLightfv(GL_LIGHT0, GL_POSITION, luzPosicao);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, luzCor);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, especular);
 }
 
 // Função responsável pela especificação dos parâmetros de iluminação
 void DefineIluminacao(void)
 {
-    // Luz direcional (Simulando o sol)
-    GLfloat direcional_posicao[] = {1.0f, 1.0f, 1.0f, 0.0f};
-    GLfloat direcional_ambient[] = {0.5f, 0.5f, 0.5f, 1.0f};  // Componente ambiente para iluminar mais
-    GLfloat direcional_diffuse[] = {1.0f, 0.9f, 0.7f, 1.0f};  // Tom quente, como a luz do sol
-    GLfloat direcional_specular[] = {1.0f, 0.9f, 0.7f, 1.0f}; // Mesma tonalidade para o especular
-
-    glLightfv(GL_LIGHT0, GL_POSITION, direcional_posicao);
-    glLightfv(GL_LIGHT0, GL_AMBIENT, direcional_ambient);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, direcional_diffuse);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, direcional_specular);
+    // Configuração da luz direcional
+    DefineLuzDirecional();
 
     // Configuração da luz pontual (Roxa)
     DefineLuzPontual();
