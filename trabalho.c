@@ -4,6 +4,7 @@ Brinquedo: Carrossel
 Nomes: Gabriel Gomes e Wandra Martins
 
 Teclas adicionais: F1, F2, Z e X, descritas na funçaõ de definição dos comando do teclado.
+Além das teclas requisitadas no trabalho.
 */
 
 #include <GL/glut.h>
@@ -26,50 +27,84 @@ float rotX = 0.0f, rotY = 0.0f, obsZ = 50.0f; // Declarando variáveis globais
 float velocidadeGiro = 1.0f;
 #define PI 3.1415927
 
-// Funcao responsavel por desenhar um cilindro
+// Funcao responsavel por desenhar um cilindro.
+// raio é o raio da base e do topo do cilindro;
+// altura é a altura do cilindro no eixo Z;
+// segmentos é o número de segmentos para aproximar a forma circular do cilindro
 void DesenhaCilindro(float raio, float altura, int segmentos)
 {
-    float anguloCilindro, x, y;
+    // Ângulo atual para calcular x e y
+    float anguloCilindro;
+
+    // Ponto (x, y) na circunferencia do círculo
+    float x, y;
+
+    // Incremento angular entre cada segmento
     float anguloIncremento = 2.0f * PI / segmentos;
 
-    // Desenha o corpo do cilindro
+    // Desenha o corpo do cilindro (com quadriláteros)
     glBegin(GL_QUAD_STRIP);
     for (int i = 0; i <= segmentos; i++)
     {
+        // Calcula o ângulo atual
         anguloCilindro = i * anguloIncremento;
+
+        // Calcula o ponto (x, y) atual
         x = cos(anguloCilindro);
         y = sin(anguloCilindro);
 
         // Normal (aponta para fora, na direção radial)
         glNormal3f(x, y, 0.0f);
 
+        // Define um vértice na base do cilindro
         glVertex3f(raio * x, raio * y, 0.0f);
+
+        // Define o outro vértice no topo do cilindro
         glVertex3f(raio * x, raio * y, altura);
     }
     glEnd();
 
-    // Desenha a base do cilindro
+    // Desenha a base do cilindro (com leque de triângulos)
     glBegin(GL_TRIANGLE_FAN);
-    glNormal3f(0.0f, 0.0f, -1.0f); // Normal aponta para baixo
-    glVertex3f(0.0f, 0.0f, 0.0f);  // Centro da base
+
+    // Normal aponta para baixo
+    glNormal3f(0.0f, 0.0f, -1.0f);
+
+    // Centro da base
+    glVertex3f(0.0f, 0.0f, 0.0f);
+
     for (int i = 0; i <= segmentos; i++)
     {
+        // Calcula o ângulo atual
         anguloCilindro = i * anguloIncremento;
+
+        // Calcula o ponto (x, y) atual
         x = raio * cos(anguloCilindro);
         y = raio * sin(anguloCilindro);
+
+        // Vértice na borda da base
         glVertex3f(x, y, 0.0f);
     }
     glEnd();
 
-    // Desenha o topo do cilindro
+    // Desenha o topo do cilindro (com leque de triângulos)
     glBegin(GL_TRIANGLE_FAN);
-    glNormal3f(0.0f, 0.0f, 1.0f);   // Normal aponta para cima
-    glVertex3f(0.0f, 0.0f, altura); // Centro do topo
+
+    // Normal aponta para cima
+    glNormal3f(0.0f, 0.0f, 1.0f);
+
+    // Centro do topo
+    glVertex3f(0.0f, 0.0f, altura);
+
     for (int i = 0; i <= segmentos; i++)
     {
+        // Calcula o ângulo atual
         anguloCilindro = i * anguloIncremento;
+        // Calcula o ponto (x, y) atual
         x = raio * cos(anguloCilindro);
         y = raio * sin(anguloCilindro);
+
+        // Vértice na borda do topo
         glVertex3f(x, y, altura);
     }
     glEnd();
@@ -120,22 +155,23 @@ void DefineIluminacao(void)
 // Função para desenhar o piso horizontal, abaixo do brinquedo.
 void DesenhaPiso()
 {
-    glColor3f(0.0, 0.7, 0.0);
+    glColor3f(0.0, 0.7, 0.0); // Linha Verde escuro
     glLineWidth(1.6f);
-    glBegin(GL_LINE_LOOP);
-    glVertex3f(-1.0, -1.0, 1.0);
-    glVertex3f(1.0, -1.0, 1.0);
-    glVertex3f(1.0, -1.0, -1.0);
-    glVertex3f(-1.0, -1.0, -1.0);
+
+    glBegin(GL_LINE_LOOP);        // Desenho de loop de linhas
+    glVertex3f(-1.0, -1.0, 1.0);  // Canto inferior esquerdo (frente)
+    glVertex3f(1.0, -1.0, 1.0);   // Canto inferior direito (frente)
+    glVertex3f(1.0, -1.0, -1.0);  // Canto inferior direito (atrás)
+    glVertex3f(-1.0, -1.0, -1.0); // Canto inferior esquerdo (atrás)
     glEnd();
 
-    glBegin(GL_QUADS);
-    glNormal3f(0.0, 0.0, 1.0);
-    glColor3f(0.0, 0.7, 0.0);
-    glVertex3f(-1.0, -1.0, 1.0);
-    glVertex3f(1.0, -1.0, 1.0);
-    glVertex3f(1.0, -1.0, -1.0);
-    glVertex3f(-1.0, -1.0, -1.0);
+    glBegin(GL_QUADS);            // Desenho de um quadrilátero
+    glNormal3f(0.0, 0.0, 1.0);    // Normal do piso, apontada para cima
+    glColor3f(0.0, 0.7, 0.0);     // Piso Verde escuro
+    glVertex3f(-1.0, -1.0, 1.0);  // Canto inferior esquerdo (frente)
+    glVertex3f(1.0, -1.0, 1.0);   // Canto inferior direito (frente)
+    glVertex3f(1.0, -1.0, -1.0);  // Canto inferior direito (atrás)
+    glVertex3f(-1.0, -1.0, -1.0); // Canto inferior esquerdo (atrás)
     glEnd();
 }
 
@@ -144,32 +180,32 @@ void DesenhaCarrossel()
 {
     // Base do carrossel
     glPushMatrix();
-    glTranslatef(0.0f, -0.5f, 0.0f);
-    glRotatef(-90.0, 1.0, 0.0, 0.0);
-    glColor3ub(229, 170, 203);
+    glTranslatef(0.0f, -0.5f, 0.0f); // Move um pouco para baixo (eiro y)
+    glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona em -90 graus no eixo x (sentido horário)
+    glColor3ub(229, 170, 203);       // Cor rosa usando parâmetros RGB
     DesenhaCilindro(2.0, 0.2, 50);
     glPopMatrix();
 
     // Poste central
     glPushMatrix();
-    glTranslatef(0.0f, -0.5f, 0.0f);
-    glRotatef(-90.0, 1.0, 0.0, 0.0);
-    glColor3ub(178, 9, 166);
+    glTranslatef(0.0f, -0.5f, 0.0f); // Desenha na mesma posição central da base
+    glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona -90 graus no eixo x(sentido horário)
+    glColor3ub(178, 9, 166);         // Cor roxa usando RGB
     DesenhaCilindro(0.1, 4.0, 50);
     glPopMatrix();
 
     // Teto cônico
     glPushMatrix();
-    glTranslatef(0.0f, 3.5f, 0.0f);
-    glRotatef(-90.0, 1.0, 0.0, 0.0);
-    glColor3ub(125, 63, 151);
+    glTranslatef(0.0f, 3.5f, 0.0f);  // Move pra cima (eixo y)
+    glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona -90 graus no eixo x (sentido horário)
+    glColor3ub(125, 63, 151);        // Cor roxa usando RGB
     glutSolidCone(3, 1.5, 50, 50);
     glPopMatrix();
 
     // Inicia modelagem hierárquica dos postes em torno da base
     // e dos bancos cônicos
     glPushMatrix();
-    glRotatef(angulo, 0.0f, 1.0f, 0.0f);
+    glRotatef(angulo, 0.0f, 1.0f, 0.0f); // Eixo de rotação no eixo y
 
     for (int i = 0; i < 4; i++) // Desenha 4 cones simulando um banco do carrossel
     {
@@ -183,12 +219,13 @@ void DesenhaCarrossel()
         glRotatef(i * 90.0f, 0.0f, 1.0f, 0.0f);
         glColor3ub(178, 9, 166);
 
-        glPushMatrix();
-        glRotatef(90.0, 1.0, 0.0, 0.0);
+        glPushMatrix();                  // Para não influenciar o desenho do poste
+        glRotatef(90.0, 1.0, 0.0, 0.0);  // Desenha o cone de "cabeça para baixo"
         glutSolidCone(0.5, 0.5, 50, 50); // Banco
         glPopMatrix();
 
-        glRotatef(-90.0, 1.0, 0.0, 0.0);
+        glRotatef(-90.0, 1.0, 0.0, 0.0); // Necessário porque o cilindro é desenhado no eixo z
+                                         // Então, rotaciona para que ele fique em pé
         glColor3ub(178, 9, 166);
         DesenhaCilindro(0.05, 3.5, 50); // Poste
         glPopMatrix();
@@ -208,6 +245,7 @@ void DesenhaGramado()
 }
 
 // Função para desenhar nuvens no céu, que ficam escuras quando a luz direcional está desligada
+// Desenha várias esferar de cor branca juntas para simular uma nuvem
 void DesenhaNuvens()
 {
     glPushMatrix();
@@ -261,10 +299,10 @@ void DesenhaNuvens()
 void Desenha(void)
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    DefineIluminacao();
+    DefineIluminacao(); // Define parâmetros de iluminação
     glMatrixMode(GL_MODELVIEW);
 
-    PosicionaObservador(); // Atualiza a posição da câmera
+    PosicionaObservador(); // Posiciona a cãmera
 
     DesenhaNuvens();    // Adiciona as nuvens ao céu
     DesenhaGramado();   // Desenha o gramado
@@ -320,11 +358,12 @@ void Animacao(int value)
         if (angulo > 360)         // Quando rotaciona em 360 graus, reseta.
             angulo -= 360;
 
-        glutPostRedisplay();
-        glutTimerFunc(16, Animacao, 0); // Gira em torno de 60 FPS.
+        glutPostRedisplay();            // Redesenha a cena
+        glutTimerFunc(16, Animacao, 0); // Animação exibida em torno de 60FPS.
     }
 }
 
+// Teclas especiais que controlam o programa
 void TeclasEspeciais(int key, int x, int y)
 {
     switch (key)
@@ -357,14 +396,13 @@ void TeclasEspeciais(int key, int x, int y)
 void Inicializa(void)
 {
     glClearColor(0.53f, 0.81f, 0.92f, 1.0f); // Simula a cor azul claro do céu
-    glutSpecialFunc(TeclasEspeciais);        // Registra a função de teclas especiais
 
-    glEnable(GL_COLOR_MATERIAL);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_COLOR_MATERIAL); // Ativa o uso de cores dos materiais
+    glEnable(GL_LIGHTING);       // Ativa a iluminação
+    glEnable(GL_LIGHT0);         // Ativa a fonte de luz no índice 0
+    glEnable(GL_DEPTH_TEST);     // Ativa o teste de profundidade
 
-    glShadeModel(GL_SMOOTH);
+    glShadeModel(GL_SMOOTH); // Modelo de sombreamento de Gouraud
 }
 
 // Função callback que define quais teclas terão efeito
