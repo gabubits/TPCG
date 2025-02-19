@@ -202,7 +202,7 @@ void DesenhaCarrossel()
     glPushMatrix();
     glRotatef(angulo, 0.0f, 1.0f, 0.0f); // Eixo de rotação no eixo y
 
-    // Teto cônico
+    // Teto cônico (também gira)
     glPushMatrix();
     glTranslatef(0.0f, 3.5f, 0.0f);  // Move pra cima (eixo y)
     glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona -90 graus no eixo x (sentido horário)
