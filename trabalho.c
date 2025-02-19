@@ -11,6 +11,7 @@ Além das teclas requisitadas no trabalho.
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 // Declaração da função PosicionaObservador
 void PosicionaObservador(void);
@@ -23,7 +24,7 @@ bool luzPontualAtiva = true;
 float anguloCamera = 0.0f;
 float distanciaCamera = 5.0f;
 float alturaCamera = 2.0f;
-float rotX = 0.0f, rotY = 0.0f, obsZ = 50.0f; // Declarando variáveis globais
+float rotX = 30.0f, rotY = 45.0f, obsZ = 30.0f; // Declarando variáveis globais
 float velocidadeGiro = 1.0f;
 #define PI 3.1415927
 
