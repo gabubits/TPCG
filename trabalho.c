@@ -184,7 +184,7 @@ void DesenhaCarrossel()
     glTranslatef(0.0f, -0.5f, 0.0f); // Move um pouco para baixo (eiro y)
     glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona em -90 graus no eixo x (sentido horário)
     glColor3ub(229, 170, 203);       // Cor rosa usando parâmetros RGB
-    DesenhaCilindro(2.0, 0.2, 50);
+    DesenhaCilindro(5.0, 0.2, 50);
     glPopMatrix();
 
     // Poste central
@@ -192,7 +192,7 @@ void DesenhaCarrossel()
     glTranslatef(0.0f, -0.5f, 0.0f); // Desenha na mesma posição central da base
     glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona -90 graus no eixo x(sentido horário)
     glColor3ub(178, 9, 166);         // Cor roxa usando RGB
-    DesenhaCilindro(0.1, 4.0, 50);
+    DesenhaCilindro(0.4, 4.0, 50);
     glPopMatrix();
 
     // Teto cônico
@@ -200,7 +200,7 @@ void DesenhaCarrossel()
     glTranslatef(0.0f, 3.5f, 0.0f);  // Move pra cima (eixo y)
     glRotatef(-90.0, 1.0, 0.0, 0.0); // Rotaciona -90 graus no eixo x (sentido horário)
     glColor3ub(125, 63, 151);        // Cor roxa usando RGB
-    glutSolidCone(3, 1.5, 50, 50);
+    glutSolidCone(5, 3, 50, 50);
     glPopMatrix();
 
     // Inicia modelagem hierárquica dos postes em torno da base
@@ -208,13 +208,13 @@ void DesenhaCarrossel()
     glPushMatrix();
     glRotatef(angulo, 0.0f, 1.0f, 0.0f); // Eixo de rotação no eixo y
 
-    for (int i = 0; i < 4; i++) // Desenha 4 cones simulando um banco do carrossel
+    for (int i = 0; i < 12; i++) // Desenha 4 cones simulando um banco do carrossel
     {
         glPushMatrix();
 
-        float theta = 2.0f * PI * i / 4; //
-        float x = 1.5f * cos(theta);     // Cálculo para determinar o desenho do poste e do banco
-        float z = 1.5f * sin(theta);     //
+        float theta = 2.0f * PI * i / 12; //
+        float x = 4.1f * cos(theta);      // Cálculo para determinar o desenho do poste e do banco
+        float z = 4.1f * sin(theta);      //
 
         glTranslatef(x, 0.5f, z);
         glRotatef(i * 90.0f, 0.0f, 1.0f, 0.0f);
