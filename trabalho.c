@@ -2,6 +2,8 @@
 Trabalho de computação gráfica
 Brinquedo: Carrossel
 Nomes: Gabriel Gomes e Wandra Martins
+
+Teclas adicionais: F1, F2, Z e X, descritas na funçaõ de definição dos comando do teclado.
 */
 
 #include <GL/glut.h>
@@ -21,6 +23,7 @@ float anguloCamera = 0.0f;
 float distanciaCamera = 5.0f;
 float alturaCamera = 2.0f;
 float rotX = 0.0f, rotY = 0.0f, obsZ = 50.0f; // Declarando variáveis globais
+float velocidadeGiro = 1.0f;
 #define PI 3.1415927
 
 // Funcao responsavel por desenhar um cilindro
@@ -313,12 +316,12 @@ void Animacao(int value)
 {
     if (interruptorAnimacao) // Se a animação estiver ligada
     {
-        angulo += 1.0f;
-        if (angulo > 360) // Quando rotaciona em 360 graus, reseta.
+        angulo += velocidadeGiro; // Aumenta a rotação de acordo com a velocidade de giro
+        if (angulo > 360)         // Quando rotaciona em 360 graus, reseta.
             angulo -= 360;
 
         glutPostRedisplay();
-        glutTimerFunc(16, Animacao, 0); // ~60 FPS
+        glutTimerFunc(16, Animacao, 0); // Gira em torno de 60 FPS.
     }
 }
 
@@ -382,6 +385,7 @@ void GerenciaTeclado(unsigned char key, int x, int y)
             glutTimerFunc(25, Animacao, 0); // Se ligado, inicia a animação
         break;
     case 's': // Ligar/desligar luz direcional
+    case 'S':
         luzDirecionalAtiva = !luzDirecionalAtiva;
         if (luzDirecionalAtiva)
             glEnable(GL_LIGHT0); // Ativa luz direcional
@@ -389,11 +393,22 @@ void GerenciaTeclado(unsigned char key, int x, int y)
             glDisable(GL_LIGHT0); // Desativa luz direcional
         break;
     case 'l': // Ligar/desligar luz pontual
+    case 'L':
         luzPontualAtiva = !luzPontualAtiva;
         if (luzPontualAtiva)
             glEnable(GL_LIGHT1); // Ativa luz pontual
         else
             glDisable(GL_LIGHT1); // Desativa luz pontual
+        break;
+    case 'z': // Desacelerar a velocidade de giro
+    case 'Z':
+        velocidadeGiro -= 0.1f;
+        if (velocidadeGiro < 0.0f)
+            velocidadeGiro = 0.0f;
+        break;
+    case 'x': // Acelerar a velocidade de giro
+    case 'X':
+        velocidadeGiro += 0.1f;
         break;
     }
 
