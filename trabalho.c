@@ -79,10 +79,9 @@ void DefineLuzPontual(void)
     GLfloat luzAmbiente[] = {0.3f, 0.0f, 0.3f, 1.0f}; // Componente ambiente para reforçar a luz
     GLfloat luzCor[] = {1.0f, 0.0f, 1.0f, 1.0f};      // Cor roxa intensa
 
-    glLightfv(GL_LIGHT1, GL_POSITION, luzPosicao);
-    glLightfv(GL_LIGHT1, GL_AMBIENT, luzAmbiente);
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, luzCor);
-    glLightfv(GL_LIGHT1, GL_SPECULAR, luzCor);
+    glLightfv(GL_LIGHT1, GL_POSITION, luzPosicao); // Configuração da posição
+    glLightfv(GL_LIGHT1, GL_AMBIENT, luzAmbiente); // Configuração da luz ambiente
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, luzCor);      // Configuração da cor da luz (difusa)
 }
 
 // Função responsável pela especificação dos parâmetros da luz direcional (Sol)
@@ -92,12 +91,17 @@ void DefineLuzDirecional(void)
     GLfloat luzPosicao[] = {1.0f, 1.0f, 1.0f, 0.0f};
     GLfloat luzAmbiente[] = {0.5f, 0.5f, 0.5f, 1.0f}; // Componente ambiente para iluminar mais
     GLfloat luzCor[] = {1.0f, 0.9f, 0.7f, 1.0f};      // Tom quente, como a luz do sol
-    GLfloat especular[] = {1.0f, 0.9f, 0.7f, 1.0f};   // Mesma tonalidade para o especular
+
+    GLfloat especular[] = {1.0f, 1.0f, 1.0f, 1.0f}; // Mesma tonalidade para o especular
+    GLfloat shininess[] = {30.0f};                  // Brilho do material (baixo para especularidade suave)
 
     glLightfv(GL_LIGHT0, GL_POSITION, luzPosicao);
     glLightfv(GL_LIGHT0, GL_AMBIENT, luzAmbiente);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, luzCor);
     glLightfv(GL_LIGHT0, GL_SPECULAR, especular);
+
+    glMaterialfv(GL_FRONT, GL_SPECULAR, especular);  // Configuração para a luz especular na frontal
+    glMaterialfv(GL_FRONT, GL_SHININESS, shininess); // Configuração do brilho da superfície
 }
 
 // Função responsável pela especificação dos parâmetros de iluminação
