@@ -5,13 +5,15 @@ Nomes: Gabriel Gomes e Wandra Martins
 
 Teclas adicionais: F1, F2, Z e X, descritas na funçaõ de definição dos comando do teclado.
 Além das teclas requisitadas no trabalho.
+
+Para compilar: gcc trabalho.c -o trab -lglut -lGLU -lGL -lm
+Para executar: ./trab
 */
 
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
-#include <stdio.h>
 
 // Declaração da função PosicionaObservador
 void PosicionaObservador(void);
