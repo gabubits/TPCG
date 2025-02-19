@@ -197,6 +197,11 @@ void DesenhaCarrossel()
     DesenhaCilindro(0.4, 4.0, 50);
     glPopMatrix();
 
+    // Inicia modelagem hierárquica dos postes em torno da base
+    // e dos bancos cônicos
+    glPushMatrix();
+    glRotatef(angulo, 0.0f, 1.0f, 0.0f); // Eixo de rotação no eixo y
+
     // Teto cônico
     glPushMatrix();
     glTranslatef(0.0f, 3.5f, 0.0f);  // Move pra cima (eixo y)
@@ -204,11 +209,6 @@ void DesenhaCarrossel()
     glColor3ub(125, 63, 151);        // Cor roxa usando RGB
     glutSolidCone(5, 3, 50, 50);
     glPopMatrix();
-
-    // Inicia modelagem hierárquica dos postes em torno da base
-    // e dos bancos cônicos
-    glPushMatrix();
-    glRotatef(angulo, 0.0f, 1.0f, 0.0f); // Eixo de rotação no eixo y
 
     for (int i = 0; i < 12; i++) // Desenha 4 cones simulando um banco do carrossel
     {
