@@ -20,7 +20,7 @@ bool luzPontualAtiva = true;
 float anguloCamera = 0.0f;
 float distanciaCamera = 5.0f;
 float alturaCamera = 2.0f;
-float rotX = 0.0f, rotY = 0.0f, obsZ = 50.0f;  // Declarando variáveis globais
+float rotX = 0.0f, rotY = 0.0f, obsZ = 50.0f; // Declarando variáveis globais
 #define PI 3.1415927
 
 // Funcao responsavel por desenhar um cilindro
@@ -71,37 +71,35 @@ void DesenhaCilindro(float raio, float altura, int segmentos)
     }
     glEnd();
 }
-void DefineLuzPontual(void) {
-    GLfloat luzPosicao[] = {0.0f, 1.0f, 0.0f, 1.0f};  // Posiciona a luz na cena
-    GLfloat luzAmbient[]  = {0.3f, 0.0f, 0.3f, 1.0f};  // Componente ambiente para reforçar a luz
-    GLfloat luzCor[]      = {1.0f, 0.0f, 1.0f, 1.0f};  // Cor roxa intensa
-    
+void DefineLuzPontual(void)
+{
+    GLfloat luzPosicao[] = {0.0f, 1.0f, 0.0f, 1.0f}; // Posiciona a luz na cena
+    GLfloat luzAmbient[] = {0.3f, 0.0f, 0.3f, 1.0f}; // Componente ambiente para reforçar a luz
+    GLfloat luzCor[] = {1.0f, 0.0f, 1.0f, 1.0f};     // Cor roxa intensa
+
     glLightfv(GL_LIGHT1, GL_POSITION, luzPosicao);
     glLightfv(GL_LIGHT1, GL_AMBIENT, luzAmbient);
     glLightfv(GL_LIGHT1, GL_DIFFUSE, luzCor);
     glLightfv(GL_LIGHT1, GL_SPECULAR, luzCor);
 }
 
-
-
 // Função responsável pela especificação dos parâmetros de iluminação
 void DefineIluminacao(void)
 {
     // Luz direcional (Simulando o sol)
     GLfloat direcional_posicao[] = {1.0f, 1.0f, 1.0f, 0.0f};
-    GLfloat direcional_ambient[]  = {0.5f, 0.5f, 0.5f, 1.0f};   // Componente ambiente para iluminar mais
-    GLfloat direcional_diffuse[]  = {1.0f, 0.9f, 0.7f, 1.0f};   // Tom quente, como a luz do sol
-    GLfloat direcional_specular[] = {1.0f, 0.9f, 0.7f, 1.0f};   // Mesma tonalidade para o especular
+    GLfloat direcional_ambient[] = {0.5f, 0.5f, 0.5f, 1.0f};  // Componente ambiente para iluminar mais
+    GLfloat direcional_diffuse[] = {1.0f, 0.9f, 0.7f, 1.0f};  // Tom quente, como a luz do sol
+    GLfloat direcional_specular[] = {1.0f, 0.9f, 0.7f, 1.0f}; // Mesma tonalidade para o especular
 
     glLightfv(GL_LIGHT0, GL_POSITION, direcional_posicao);
     glLightfv(GL_LIGHT0, GL_AMBIENT, direcional_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, direcional_diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, direcional_specular);
-    
+
     // Configuração da luz pontual (Roxa)
     DefineLuzPontual();
 }
-
 
 // Função para desenhar o piso horizontal, abaixo do brinquedo.
 void DesenhaPiso()
@@ -181,80 +179,83 @@ void DesenhaCarrossel()
     }
     glPopMatrix();
 }
-void DesenhaGramado() {
+void DesenhaGramado()
+{
     glColor3f(0.0, 0.5, 0.0); // Cor verde para o gramado
     glBegin(GL_QUADS);
-        glNormal3f(0.0, 1.0, 0.0); // Normal aponta para cima
-        glVertex3f(-10.0, -1.0, -10.0); // Canto inferior esquerdo
-        glVertex3f(10.0, -1.0, -10.0);  // Canto inferior direito
-        glVertex3f(10.0, -1.0, 10.0);    // Canto superior direito
-        glVertex3f(-10.0, -1.0, 10.0);   // Canto superior esquerdo
+    glNormal3f(0.0, 1.0, 0.0);      // Normal aponta para cima
+    glVertex3f(-10.0, -1.0, -10.0); // Canto inferior esquerdo
+    glVertex3f(10.0, -1.0, -10.0);  // Canto inferior direito
+    glVertex3f(10.0, -1.0, 10.0);   // Canto superior direito
+    glVertex3f(-10.0, -1.0, 10.0);  // Canto superior esquerdo
     glEnd();
 }
-// Função para desenhar nuvens no céu
+
 // Função para desenhar nuvens no céu, que ficam escuras quando a luz direcional está desligada
-void DesenhaNuvens() {
+void DesenhaNuvens()
+{
     glPushMatrix();
-        // Desabilita a iluminação para que possamos definir a cor manualmente
-        glDisable(GL_LIGHTING);
-        if (luzDirecionalAtiva) {
-            glColor3f(1.0f, 1.0f, 1.0f);  // Nuvens brilhantes (brancas)
-        } else {
-            glColor3f(0.2f, 0.2f, 0.2f);  // Nuvens escuras
-        }
-        
-        // Nuvem 1
-        glPushMatrix();
-            glTranslatef(-5.0f, 8.0f, -5.0f);
-            glutSolidSphere(0.8, 20, 20);
-            glTranslatef(0.8f, 0.2f, 0.0f);
-            glutSolidSphere(0.6, 20, 20);
-            glTranslatef(-1.6f, 0.0f, 0.0f);
-            glutSolidSphere(0.7, 20, 20);
-        glPopMatrix();
+    // Desabilita a iluminação para que possamos definir a cor manualmente
+    glDisable(GL_LIGHTING);
+    if (luzDirecionalAtiva)
+    {
+        glColor3f(1.0f, 1.0f, 1.0f); // Nuvens brilhantes (brancas)
+    }
+    else
+    {
+        glColor3f(0.2f, 0.2f, 0.2f); // Nuvens escuras
+    }
 
-        // Nuvem 2
-        glPushMatrix();
-            glTranslatef(4.0f, 10.0f, -6.0f);
-            glutSolidSphere(1.0, 20, 20);
-            glTranslatef(1.0f, 0.3f, 0.0f);
-            glutSolidSphere(0.8, 20, 20);
-            glTranslatef(-2.0f, 0.0f, 0.0f);
-            glutSolidSphere(0.9, 20, 20);
-        glPopMatrix();
+    // Nuvem 1
+    glPushMatrix();
+    glTranslatef(-5.0f, 8.0f, -5.0f);
+    glutSolidSphere(0.8, 20, 20);
+    glTranslatef(0.8f, 0.2f, 0.0f);
+    glutSolidSphere(0.6, 20, 20);
+    glTranslatef(-1.6f, 0.0f, 0.0f);
+    glutSolidSphere(0.7, 20, 20);
+    glPopMatrix();
 
-        // Nuvem 3
-        glPushMatrix();
-            glTranslatef(0.0f, 9.0f, 6.0f);
-            glutSolidSphere(0.9, 20, 20);
-            glTranslatef(1.0f, 0.2f, 0.0f);
-            glutSolidSphere(0.7, 20, 20);
-            glTranslatef(-2.0f, 0.0f, 0.0f);
-            glutSolidSphere(0.8, 20, 20);
-        glPopMatrix();
+    // Nuvem 2
+    glPushMatrix();
+    glTranslatef(4.0f, 10.0f, -6.0f);
+    glutSolidSphere(1.0, 20, 20);
+    glTranslatef(1.0f, 0.3f, 0.0f);
+    glutSolidSphere(0.8, 20, 20);
+    glTranslatef(-2.0f, 0.0f, 0.0f);
+    glutSolidSphere(0.9, 20, 20);
+    glPopMatrix();
 
-        // Reativa a iluminação para os demais elementos da cena
-        glEnable(GL_LIGHTING);
+    // Nuvem 3
+    glPushMatrix();
+    glTranslatef(0.0f, 9.0f, 6.0f);
+    glutSolidSphere(0.9, 20, 20);
+    glTranslatef(1.0f, 0.2f, 0.0f);
+    glutSolidSphere(0.7, 20, 20);
+    glTranslatef(-2.0f, 0.0f, 0.0f);
+    glutSolidSphere(0.8, 20, 20);
+    glPopMatrix();
+
+    // Reativa a iluminação para os demais elementos da cena
+    glEnable(GL_LIGHTING);
     glPopMatrix();
 }
 
-
-
 // Função callback de redesenho da janela de visualização
-void Desenha(void) {
+void Desenha(void)
+{
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     DefineIluminacao();
     glMatrixMode(GL_MODELVIEW);
-    
+
     PosicionaObservador(); // Atualiza a posição da câmera
 
-    DesenhaNuvens();      // Adiciona as nuvens ao céu
-    DesenhaGramado();     // Desenha o gramado
-    DesenhaCarrossel();   // Desenha o carrossel
+    DesenhaNuvens();    // Adiciona as nuvens ao céu
+    DesenhaGramado();   // Desenha o gramado
+    DesenhaCarrossel(); // Desenha o carrossel
 
     glutSwapBuffers();
 }
-
 
 // Função usada para especificar a posição do observador virtual
 void PosicionaObservador(void)
@@ -312,37 +313,35 @@ void TeclasEspeciais(int key, int x, int y)
 {
     switch (key)
     {
-        case GLUT_KEY_LEFT:   // Tecla de seta para a esquerda
-            rotY -= 5.0f;     // Girar a câmera para a esquerda
-            break;
-        case GLUT_KEY_RIGHT:  // Tecla de seta para a direita
-            rotY += 5.0f;     // Girar a câmera para a direita
-            break;
-        case GLUT_KEY_UP:     // Tecla de seta para cima
-            rotX -= 5.0f;     // Girar a câmera para cima
-            break;
-        case GLUT_KEY_DOWN:   // Tecla de seta para baixo
-            rotX += 5.0f;     // Girar a câmera para baixo
-            break;
-        case GLUT_KEY_F1:    // Tecla F1
-            obsZ -= 10.0f;    // Aproxime a câmera
-            break;
-        case GLUT_KEY_F2:    // Tecla F2
-            obsZ += 10.0f;    // Afaste a câmera
-            break;
-        default:
-            break;
+    case GLUT_KEY_LEFT: // Tecla de seta para a esquerda
+        rotY -= 5.0f;   // Girar a câmera para a esquerda
+        break;
+    case GLUT_KEY_RIGHT: // Tecla de seta para a direita
+        rotY += 5.0f;    // Girar a câmera para a direita
+        break;
+    case GLUT_KEY_UP: // Tecla de seta para cima
+        rotX -= 5.0f; // Girar a câmera para cima
+        break;
+    case GLUT_KEY_DOWN: // Tecla de seta para baixo
+        rotX += 5.0f;   // Girar a câmera para baixo
+        break;
+    case GLUT_KEY_F1:  // Tecla F1
+        obsZ -= 10.0f; // Aproxime a câmera
+        break;
+    case GLUT_KEY_F2:  // Tecla F2
+        obsZ += 10.0f; // Afaste a câmera
+        break;
+    default:
+        break;
     }
     glutPostRedisplay(); // Redesenha a cena
 }
-
-
 
 // Função responsável por inicializar parâmetros e variáveis
 void Inicializa(void)
 {
     glClearColor(0.53f, 0.81f, 0.92f, 1.0f); // Simula a cor azul claro do céu
-    glutSpecialFunc(TeclasEspeciais);  // Registra a função de teclas especiais
+    glutSpecialFunc(TeclasEspeciais);        // Registra a função de teclas especiais
 
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHTING);
@@ -372,14 +371,14 @@ void GerenciaTeclado(unsigned char key, int x, int y)
     case 's': // Ligar/desligar luz direcional
         luzDirecionalAtiva = !luzDirecionalAtiva;
         if (luzDirecionalAtiva)
-            glEnable(GL_LIGHT0);  // Ativa luz direcional
+            glEnable(GL_LIGHT0); // Ativa luz direcional
         else
             glDisable(GL_LIGHT0); // Desativa luz direcional
         break;
     case 'l': // Ligar/desligar luz pontual
         luzPontualAtiva = !luzPontualAtiva;
         if (luzPontualAtiva)
-            glEnable(GL_LIGHT1);  // Ativa luz pontual
+            glEnable(GL_LIGHT1); // Ativa luz pontual
         else
             glDisable(GL_LIGHT1); // Desativa luz pontual
         break;
@@ -387,7 +386,6 @@ void GerenciaTeclado(unsigned char key, int x, int y)
 
     glutPostRedisplay(); // Atualiza a tela após a modificação
 }
-
 
 // Programa Principal
 int main(int argc, char **argv)
@@ -411,18 +409,18 @@ int main(int argc, char **argv)
 
     // Registra função de callback de redimensionamento
     glutReshapeFunc(AlteraTamanhoJanela);
-    
+
     // Registra função de callback para comandos recebidos do teclado
     glutKeyboardFunc(GerenciaTeclado);
 
     // Registra função de callback para teclas especiais (setas)
     glutSpecialFunc(TeclasEspeciais);
-    
+
     // Inicialização
     Inicializa();
-    
+
     // Inicia o processamento
     glutMainLoop();
-    
+
     return 0;
 }
